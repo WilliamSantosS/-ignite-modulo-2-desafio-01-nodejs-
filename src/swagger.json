@@ -1,0 +1,253 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UserX",
+    "description": "This is an users register API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "smurf455@hotmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "description": "Route to create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type:": "object",
+                "porperties": {
+                  "name":{
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "this is an example",
+                  "email": "thisisanexempla@email.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                 "schema": {
+                   "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                           "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                           "admin": {
+                            "type": "boolean",
+                            "example": false
+                          }
+                        }
+                      }
+                    }
+                }
+              }
+            }
+          },
+        "400": {
+          "description": "User already exists"
+          }
+        }
+      },
+       "get": {
+        "tags": ["Users"],
+        "summary": "List all Users",
+        "description": "Route to list all the users if requested by an admin user",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "header",
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "required": true
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                       "id": {
+                        "type": "string"
+                        },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Show profile",
+        "description": "Route to show the user profile",
+        "parameters": [
+            {
+              "in": "path",
+              "name": "userId",
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "required": true
+            }
+        ],
+         "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                 "schema": {
+                   "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                           "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                           "admin": {
+                            "type": "boolean",
+                            "example": false
+                          }
+                        }
+                      }
+                    }
+                 }
+              }
+            }
+          },
+        "404": {
+          "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{userId}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Turn user into admin",
+        "description": "Route to give the user the administrator rights",
+        "operationId": "userId",
+        "parameters": [
+            {
+              "name": "userId",
+               "in": "path",
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "required": true
+            }
+        ],
+         "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                 "schema": {
+                   "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                           "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                           "admin": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      }
+                    }
+                 }
+              }
+            }
+          },
+        "404": {
+          "description": "User not found"
+          }
+        }
+      }
+    }
+  }
+}
